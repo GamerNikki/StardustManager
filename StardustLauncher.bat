@@ -92,6 +92,7 @@ if %MChoice%==0 goto settings
 goto Menu
 
 :settings
+echo BGC %BGC% FGC %FGC% USERNAME %User% Password %Password%>H:\USERDATA\%User%.ini
 color %BGC%%FGC%
 echo Text Color is [%FGC%] Background Color is [%BGC%]
 echo [1]. Change BGC
@@ -124,3 +125,11 @@ echo C = Light Red  D = Light Purple E = Light Yellow
 echo F = Bright White
 set /p"FGC=>"
 goto settings
+
+:ChatSys
+
+
+
+
+
+:LogoutMenu
