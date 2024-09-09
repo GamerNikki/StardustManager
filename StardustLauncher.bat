@@ -1,16 +1,45 @@
 @echo off
+chcp 65001
 title Stardust Client
 cls
 if NOT EXIST %appdata%\StardustUserData\%Username%.ini (
 	md %appdata%\StardustUserData
+	set "FGC=F"
 	echo BGC 0 FGC F USERNAME %Username%>%appdata%\StardustUserData\%Username%.ini
-	set %FGC=F%
-	set %BGC=0%
+	set "BGC=0"
 )else (
 	echo file exsists>%appdata%\StardustUserData\Log.txt
 )
 
+echo starting main frame
+echo █▓▒░
+ping -n 1 10.96.54.187>nul
+echo setting up files
+echo ███▓▒░
+ping -n 8 10.96.54.187>nul
+echo performing a check
+echo ██████▓▒░
+ping -n 8 10.96.54.187>nul
+echo archiving old data
+echo ████████▓▒░
+ping -n 23 10.96.54.187>nul
+echo running bootstrap
+echo █████████▓▒░
+ping -n 10 10.96.54.187>nul
+echo syncing date and time
+echo ██████████▓▒░
+ping -n 2 10.96.54.187>nul
+echo downloading latest mod launchers
+echo █████████████▓▒
+ping -n 28 10.96.54.187>nul
+echo backing up files
+echo ███████████████▓
+ping -n 10 10.96.54.187>nul
+echo done! 
+echo ████████████████
+ping -n 2 10.96.54.187>nul
 goto LoginMenu 
+chcp %_codepage%
 :LoginMenu
 cls
 title Stardust Client [Login]
@@ -26,25 +55,26 @@ cls
 setlocal enableDelayedExpansion
 echo Enter USERNAME
 set /p"USER=>"
-FORFILES /p "H:\USERDATA" /m *.ini /c "cmd /c echo @fname>H:\USERDATA\USERS.txt"
+FORFILES /p "%cd%USERDATA" /m *.ini /c "cmd /c echo @fname>%cd%USERDATA\USERS.txt"
 goto LoginPassword
 
 :Register
 cls
 echo Enter a unique username
 set /p "User=>"
-FORFILES /p "H:\USERDATA" /m *.ini /c "cmd /c echo @fname>H:\USERDATA\USERS.txt"
+FORFILES /p "%cd%USERDATA" /m *.ini /c "cmd /c echo @fname>%cd%USERDATA\USERS.txt"
 if EXIST H:\USERDATA\%filen%.ini (
 	echo Username Exists Already
 )else (
-	echo BGC 0 FGC F USERNAME %User% Password %Password%>H:\USERDATA\%User%.ini
+	echo BGC 0 FGC F USERNAME %User% Password %Password%>%cd%USERDATA\%User%.ini
+	echo BGC 0 FGC F USERNAME %User% Password %Password%>%appdata%\StardustUserData\%User%.ini
 )
 goto Register2
 
 :Register2
 echo Enter a Password
 set /p "Password=>"
-echo BGC 0 FGC F USERNAME %User% Password %Password%>H:\USERDATA\%User%.ini
+echo BGC 0 FGC F USERNAME %User% Password %Password%>%cd%USERDATA\%User%.ini
 goto LoginMenu
 
 :LoginPassword
@@ -53,7 +83,7 @@ set /p"PASS=>"
 goto startcheck
 
 :startcheck
-for /f "tokens=6,8 delims= " %%a in (H:\USERDATA\%USER%.ini) do (
+for /f "tokens=6,8 delims= " %%a in (%cd%USERDATA\%USER%.ini) do (
 	set "userkey=%%a"
 	set "passkey=%%b"
 )
@@ -68,9 +98,9 @@ if %PASS%==%passkey% goto Menu
 goto LoginMenu
 
 :Menu
-for /f "tokens=2,4 delims= " %%c in (H:\USERDATA\%USER%.ini) do (
+for /f "tokens=2,4 delims= " %%c in (%cd%USERDATA\%USER%.ini) do (
 	set "BGC=%%c"
-	set "BGC=%%d"
+	set "FGC=%%d"
 )
 color %BGC%%FGC%
 cls
@@ -92,7 +122,7 @@ if %MChoice%==0 goto settings
 goto Menu
 
 :settings
-echo BGC %BGC% FGC %FGC% USERNAME %User% Password %Password%>H:\USERDATA\%User%.ini
+echo BGC %BGC% FGC %FGC% USERNAME %User% Password %PASS%>%cd%USERDATA\%User%.ini
 color %BGC%%FGC%
 echo Text Color is [%FGC%] Background Color is [%BGC%]
 echo [1]. Change BGC
@@ -133,3 +163,25 @@ goto settings
 
 
 :LogoutMenu
+echo logging out
+color 0F
+goto LoginMenu
+
+:GameLaunch
+goto Menu
+
+:Profile
+for /f "tokens=2,4,6,8 delims= " %%c in (%cd%USERDATA\%USER%.ini) do (
+	set "BGC=%%c"
+	set "FGC=%%d"
+	set "PUSERNAME=%%e"
+	set "PPASSWORD=%%f"
+
+)
+echo Username:%PUSERNAME%
+echo Password:%PPASSWORD%
+echo Friends:WIP
+echo 1.Change a thing?
+echo 2.Back to main menu
+set /p"PFC=>"
+goto Menu
