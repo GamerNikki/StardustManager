@@ -1,7 +1,7 @@
 ::[Bat To Exe Converter]
 ::
 ::YAwzoRdxOk+EWAjk
-::fBw5plQjdCuDJF+F4kszJxUaRQeNXA==
+::fBw5plQjdDaDJGqQ9VA0PQhAYAWXMmiyA6cg7unt5umIrAMUV+1f
 ::YAwzuBVtJxjWCl3EqQJgSA==
 ::ZR4luwNxJguZRRnk
 ::Yhs/ulQjdF+5
@@ -26,7 +26,7 @@
 ::ZQ0/vhVqMQ3MEVWAtB9wSA==
 ::Zg8zqx1/OA3MEVWAtB9wSA==
 ::dhA7pRFwIByZRRnk
-::Zh4grVQjdDPlGlaK/EM9ZhhHRReGcmSoAYkP/P3/6uSTsQkhBbJvKNnni+TecLZBuRy3SbsO/HtMmfc/GBpKege4eiM1vGBBvmGXC/SIsh3lX1udpmcxDmt3j2bCwi4jZbM=
+::Zh4grVQjdDaDJGqQ9VA0PQhAYAWXMmiyA6cg2/z6/e6SsVldeOMqdozT36bAJfgWig==
 ::YB416Ek+ZG8=
 ::
 ::
@@ -147,7 +147,7 @@ if %PASS%==%passkey% goto check3
 goto LoginMenu
 
 :check3
-if %isbanned%==0 goto Menu
+if %isbanned%==false goto Menu
 goto LoginMenubanned
 
 :Menu
@@ -290,7 +290,7 @@ echo set the length of the ban
 set /p"BanLength=>"
 echo set the reason for the ban
 set /p"BanReason=>"
-echo BGC 0 FGC F USERNAME %BanChoice% Password %BanPass% isbanned 11>"Y:\StardustLauncher\USERDATA\%BanChoice%.ini"
+echo BGC 0 FGC F USERNAME %BanChoice% Password %BanPass% isbanned true>"Y:\StardustLauncher\USERDATA\%BanChoice%.ini"
 echo %BanChoice%>BannedUsers.lst
 echo you have been banned from using stardust client>"Y:\StardustLauncher\USERDATA\ban reasons\%User%.bantxt"
 echo Reason: %BanReason%>>"Y:\StardustLauncher\USERDATA\ban reasons\%User%.bantxt"
