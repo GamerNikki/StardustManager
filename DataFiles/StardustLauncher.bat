@@ -22,19 +22,19 @@
 ::cRolqwZ3JBvQF1fEqQIEIB4UYQWLMiuSE7dc3Oe73P6GsEkIR/Zf
 ::dhA7uBVwLU+EWGqQ9VATJBJRQhDi
 ::YQ03rBFzNR3SWATElA==
-::dhAmsQZ3MwfNWATElA==
+::dhAmsQZ3MwfNWATEx1YxOjhYRQGMKAs=
 ::ZQ0/vhVqMQ3MEVWAtB9wSA==
 ::Zg8zqx1/OA3MEVWAtB9wSA==
 ::dhA7pRFwIByZRRnk
-::Zh4grVQjdDPlGlaK/EM9ZhhHRReGcmSoAYkP/P3/6uSTsQkhBbJvKNnni+TecLZBuRy3SbsO/HtMmfc/GBpKege4eiM1vGBBvmGXC/SIsh3lX1udpmcxDmt3j2bCwi4jZbM=
+::Zh4grVQjdCuDJGqQ9VA0PQhADCiDKWW5DrAOpu3j6oo=
 ::YB416Ek+ZG8=
 ::
 ::
 ::978f952a14a936cc963da21a135fa983
 @echo off
+
+
 chcp 65001
-ping -n 2 10.96.54.187>nul
-cd Y:\StardustLauncher
 title Stardust Client
 cls
 if NOT EXIST %appdata%\StardustUserData\%Username%.ini (
@@ -47,33 +47,32 @@ if NOT EXIST %appdata%\StardustUserData\%Username%.ini (
 )
 
 echo starting main frame
-echo █▓▒░
+echo █▓▒░░░░░░░░░░░░░
 ping -n 2 10.96.54.187>nul
 cls
 echo setting up files
-echo ███▓▒░
+echo ███▓▒░░░░░░░░░░░
 net use Y: \\bonham.csisd.org\students$\10006\100062393\MCJava password /user:CSISD\100062393 /persistent:yes
-cd Y:\StardustLauncher
 ping -n 8 10.96.54.187>nul
 cls
 echo performing a check
-echo ██████▓▒░
+echo ██████▓▒░░░░░░░░
 ping -n 8 10.96.54.187>nul
 cls
 echo archiving old data
-echo ████████▓▒░
+echo ████████▓▒░░░░░░
 ping -n 23 10.96.54.187>nul
 cls
 echo running bootstrap
-echo █████████▓▒░
+echo █████████▓▒░░░░░
 ping -n 10 10.96.54.187>nul
 cls
 echo syncing date and time
-echo ██████████▓▒░
+echo ██████████▓▒░░░░
 ping -n 2 10.96.54.187>nul
 cls
 echo downloading latest mod launchers
-echo █████████████▓▒
+echo █████████████▓▒░
 ping -n 28 10.96.54.187>nul
 cls
 echo backing up files
@@ -102,27 +101,26 @@ cls
 setlocal enableDelayedExpansion
 echo Enter USERNAME
 set /p"USER=>"
-FORFILES /p "%cd%\USERDATA" /m *.ini /c "cmd /c echo @fname>%cd%\USERDATA\USERS.txt"
+FORFILES /p "%cd%USERDATA" /m *.ini /c "cmd /c echo @fname>%cd%USERDATA\USERS.txt"
 goto LoginPassword
 
 :Register
 cls
 echo Enter a unique username
 set /p "User=>"
-FORFILES /p "%cd%\USERDATA" /m *.ini /c "cmd /c echo @fname>%cd%\USERDATA\USERS.txt"
-if EXIST %cd%\USERDATA\%filen%.ini (
+FORFILES /p "%cd%USERDATA" /m *.ini /c "cmd /c echo @fname>%cd%USERDATA\USERS.txt"
+if EXIST H:\USERDATA\%filen%.ini (
 	echo Username Exists Already
-    goto Regester
 )else (
-	echo BGC 0 FGC F USERNAME %User% Password %Password% isbanned 0>%cd%\USERDATA\%User%.ini
-	echo BGC 0 FGC F USERNAME %User% Password %Password% isbanned 0>%appdata%\StardustUserData\%User%.ini
+	echo BGC 0 FGC F USERNAME %User% Password %Password%>%cd%USERDATA\%User%.ini
+	echo BGC 0 FGC F USERNAME %User% Password %Password%>%appdata%\StardustUserData\%User%.ini
 )
 goto Register2
 
 :Register2
 echo Enter a Password
 set /p "Password=>"
-echo BGC 0 FGC F USERNAME %User% Password %Password%>%cd%\USERDATA\%User%.ini
+echo BGC 0 FGC F USERNAME %User% Password %Password%>%cd%USERDATA\%User%.ini
 goto LoginMenu
 
 :LoginPassword
@@ -131,10 +129,9 @@ set /p"PASS=>"
 goto startcheck
 
 :startcheck
-for /f "tokens=6,8,10 delims= " %%a in (%cd%\USERDATA\%USER%.ini) do (
+for /f "tokens=6,8 delims= " %%a in (%cd%USERDATA\%USER%.ini) do (
 	set "userkey=%%a"
 	set "passkey=%%b"
-    set "isbanned=%%c"
 )
 goto check
 
@@ -143,15 +140,11 @@ if %USER%==%userkey% goto check2
 goto LoginMenu
 
 :check2
-if %PASS%==%passkey% goto check3
+if %PASS%==%passkey% goto Menu
 goto LoginMenu
 
-:check3
-if %isbanned%==0 goto Menu
-goto LoginMenubanned
-
 :Menu
-for /f "tokens=2,4 delims= " %%c in (%cd%\USERDATA\%USER%.ini) do (
+for /f "tokens=2,4 delims= " %%c in (%cd%USERDATA\%USER%.ini) do (
 	set "BGC=%%c"
 	set "FGC=%%d"
 )
@@ -176,7 +169,7 @@ if %MChoice%==1948-2383-0499 goto AdminCheck
 goto Menu
 
 :settings
-echo BGC %BGC% FGC %FGC% USERNAME %User% Password %PASS%>%cd%\USERDATA\%User%.ini
+echo BGC %BGC% FGC %FGC% USERNAME %User% Password %PASS%>%cd%USERDATA\%User%.ini
 color %BGC%%FGC%
 echo Text Color is [%FGC%] Background Color is [%BGC%]
 echo [1]. Change BGC
@@ -225,7 +218,7 @@ goto LoginMenu
 goto Menu
 
 :Profile
-for /f "tokens=2,4,6,8 delims= " %%c in (%cd%\USERDATA\%USER%.ini) do (
+for /f "tokens=2,4,6,8 delims= " %%c in (%cd%USERDATA\%USER%.ini) do (
 	set "BGC=%%c"
 	set "FGC=%%d"
 	set "PUSERNAME=%%e"
@@ -235,33 +228,10 @@ for /f "tokens=2,4,6,8 delims= " %%c in (%cd%\USERDATA\%USER%.ini) do (
 echo Username:%PUSERNAME%
 echo Password:%PPASSWORD%
 echo Friends:WIP
-echo 1.Look At Anothers Profile
+echo 1.Change a thing?
 echo 2.Back to main menu
 set /p"PFC=>"
-if %PFC%==1 goto OProfileC
-if %PFC%==2 goto Menu
-
-:OProfileC
-echo enter the username of the person to show
-set /p"PUC=>"
-goto OProfile
-
-:OProfile
-for /f "tokens=2,4,6,10 delims= " %%c in (%cd%\USERDATA\%PUC%.ini) do (
-	set "BGC=%%c"
-	set "FGC=%%d"
-	set "PUSERNAME=%%e"
-	set "WasBanned=%%f"
-
-)
-echo Username:%PUSERNAME%
-echo was banned?:%WasBanned%
-echo Friends:WIP
-echo 1.Look At Anothers Profile
-echo 2.Back to main menu
-set /p"PFC=>"
-if %PFC%==1 goto OProfile
-if %PFC%==2 goto Menu
+goto Menu
 
 :AdminCheck
 if %User%==nikki goto AdminConsole
@@ -270,32 +240,13 @@ goto Menu
 
 :AdminConsole
 echo ADMIN CONSOLE ACTIVE
-title Stardust Launcher[ADMIN CONSOLE ACTIVE] Current Admin USER=%User%
+title Stardust Launcher:ADMIN ACTIVE:Current Admin USER=%User%
 echo [1]. Launch Client Editor
 echo [2]. Exit Admin Console
-echo [3]. Ban a user
 set /p"AdminChoice=>?"
-if %AdminChoice%==1 "Y:\StardustLauncher\bat to exe\BatToExePortable\BatToExePortable.exe"
+if %AdminChoice%==1 "D:\bat to exe\BatToExePortable\BatToExePortable.exe"
 if %AdminChoice%==2 goto Menu
-if %AdminChoice%==3 goto BanMenu
 goto Admin Console
-
-:BanMenu
-title Stardust Launcher[BAN CONSOLE ACTIVE] Current Admin USER=%User%
-echo enter the username of the user to ban
-set /p"BanChoice=>"
-echo enter their password
-set /p"BanPass=>"
-echo set the length of the ban
-set /p"BanLength=>"
-echo set the reason for the ban
-set /p"BanReason=>"
-echo BGC 0 FGC F USERNAME %BanChoice% Password %BanPass% isbanned 11>"Y:\StardustLauncher\USERDATA\%BanChoice%.ini"
-echo %BanChoice%>BannedUsers.lst
-echo you have been banned from using stardust client>"Y:\StardustLauncher\USERDATA\ban reasons\%User%.bantxt"
-echo Reason: %BanReason%>>"Y:\StardustLauncher\USERDATA\ban reasons\%User%.bantxt"
-echo Length: %BanLength%>>"Y:\StardustLauncher\USERDATA\ban reasons\%User%.bantxt"
-goto AdminConsole
 
 :EndSession
 cls
@@ -322,12 +273,4 @@ cls
 echo Closing Session
 echo █████████████████
 ping -n 4 10.96.54.187>nul
-cls
 exit
-
-:LoginMenubanned
-title Stardust Client
-echo oh noes!
-type "Y:\StardustLauncher\USERDATA\ban reasons\%User%.bantxt"
-pause
-goto LoginMenu
